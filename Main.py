@@ -13,6 +13,11 @@ BACKGROUND_COLOR = "#f0f0f0"
 BUTTON_COLOR = "#4CAF50"
 TEXT_COLOR = "#333333"
 
+#Open admin dashboard after login
+def open_admin_dashboard():
+    login_window.quit()  # Close the login window
+    login_window.destroy()  # Destroy the login window completely
+    create_admin_dashboard()  # Open the admin dashboard
 
 # window for student and admin login
 def create_login_window():
