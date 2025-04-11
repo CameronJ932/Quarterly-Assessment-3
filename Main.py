@@ -13,6 +13,10 @@ BACKGROUND_COLOR = "#f0f0f0"
 BUTTON_COLOR = "#4CAF50"
 TEXT_COLOR = "#333333"
 
+# GLobal variables to make login work
+entry_username = None
+entry_password = None
+
 #Validate admin credentials
 def validate_admin_login():
     username = entry_username.get()
