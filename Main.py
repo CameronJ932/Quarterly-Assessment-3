@@ -30,3 +30,30 @@ def create_login_window():
     login_admin_button.pack(pady=10, fill="x")
 
     login_window.mainloop()
+
+#Admin login form where user is promted for username and password
+def open_admin_login_form():
+
+    global entry_username, entry_password
+    login_window.quit()
+    login_window.destroy()
+
+    admin_login_window = tk.Tk()
+    admin_login_window.title("Admin Login")
+    admin_login_window.geometry("400x300")
+    admin_login_window.config(bg=BACKGROUND_COLOR)
+
+    label_username = tk.Label(admin_login_window, text="Username:", font=FONT, bg=BACKGROUND_COLOR, fg=TEXT_COLOR)
+    label_username.pack(pady=10)
+    entry_username = tk.Entry(admin_login_window, font=FONT)
+    entry_username.pack(pady=5)
+
+    label_password = tk.Label(admin_login_window, text="Password:", font=FONT, bg=BACKGROUND_COLOR, fg=TEXT_COLOR)
+    label_password.pack(pady=10)
+    entry_password = tk.Entry(admin_login_window, show="*", font=FONT)
+    entry_password.pack(pady=5)
+
+    login_button = tk.Button(admin_login_window, text="Login", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=validate_admin_login)
+    login_button.pack(pady=20, fill="x")
+
+    admin_login_window.mainloop()
