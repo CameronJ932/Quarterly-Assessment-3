@@ -57,3 +57,21 @@ def open_admin_login_form():
     login_button.pack(pady=20, fill="x")
 
     admin_login_window.mainloop()
+
+# Admin dashboard window for managing questions
+def create_admin_dashboard():
+    dashboard_window = tk.Tk()
+    dashboard_window.title("Admin Dashboard")
+    dashboard_window.geometry("400x400")
+    dashboard_window.config(bg=BACKGROUND_COLOR)
+
+    button_add_question = tk.Button(dashboard_window, text="Add New Question", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white")
+    button_add_question.pack(pady=15, fill="x")
+
+    button_view_questions = tk.Button(dashboard_window, text="View Existing Questions", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white")
+    button_view_questions.pack(pady=15, fill="x")
+
+    button_modify_question = tk.Button(dashboard_window, text="Modify/Delete Question", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white")
+    button_modify_question.pack(pady=15, fill="x")
+
+    dashboard_window.mainloop()
