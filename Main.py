@@ -2,7 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import messagebox
 
-#Login and Password
+# admin credentials
 admin_username = "admin"
 admin_password = "password"
 
@@ -13,12 +13,13 @@ BACKGROUND_COLOR = "#f0f0f0"
 BUTTON_COLOR = "#4CAF50"
 TEXT_COLOR = "#333333"
 
-# GLobal variables to make login work
+# gloabl vars for admin
 entry_username = None
 entry_password = None
 
-#Validate admin credentials
+# Function to validate admin login
 def validate_admin_login():
+    global entry_username, entry_password  
     username = entry_username.get()
     password = entry_password.get()
 
@@ -27,17 +28,17 @@ def validate_admin_login():
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
 
-#validate student login
+# validate student login
 def validate_student_login():
     open_quiz_window()
 
-#Open admin dashboard after login
+# open admin dashboard after login
 def open_admin_dashboard():
-    login_window.quit()  # Close the login window
-    login_window.destroy()  # Destroy the login window completely
-    create_admin_dashboard()  # Open the admin dashboard
+    admin_login_window.quit()  
+    admin_login_window.destroy()  
+    create_admin_dashboard()  
 
-# window for student and admin login
+# login window with student and admin 
 def create_login_window():
     global login_window
     login_window = tk.Tk()
@@ -45,22 +46,21 @@ def create_login_window():
     login_window.geometry("400x400")
     login_window.config(bg=BACKGROUND_COLOR)
 
-    # Create the student and admin buttons
-    login_student_button = tk.Button(login_window, text="Student Login", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=validate_student_login)
+    login_student_button = tk.Button(login_window, text="Student Login", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=validate_student_login, width=20, height=2)
     login_student_button.pack(pady=10, fill="x")
 
-    login_admin_button = tk.Button(login_window, text="Admin Login", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=open_admin_login_form)
+    login_admin_button = tk.Button(login_window, text="Admin Login", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=open_admin_login_form, width=20, height=2)
     login_admin_button.pack(pady=10, fill="x")
 
     login_window.mainloop()
 
-#Admin login form where user is promted for username and password
+# Admin login window
 def open_admin_login_form():
-
-    global entry_username, entry_password
+    global entry_username, entry_password 
     login_window.quit()
     login_window.destroy()
 
+    global admin_login_window
     admin_login_window = tk.Tk()
     admin_login_window.title("Admin Login")
     admin_login_window.geometry("400x300")
@@ -76,12 +76,12 @@ def open_admin_login_form():
     entry_password = tk.Entry(admin_login_window, show="*", font=FONT)
     entry_password.pack(pady=5)
 
-    login_button = tk.Button(admin_login_window, text="Login", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=validate_admin_login)
+    login_button = tk.Button(admin_login_window, text="Login", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=validate_admin_login, width=20, height=2)
     login_button.pack(pady=20, fill="x")
 
     admin_login_window.mainloop()
 
-# Admin dashboard window for managing questions
+# Admin dashboard window for questions
 def create_admin_dashboard():
     dashboard_window = tk.Tk()
     dashboard_window.title("Admin Dashboard")
@@ -99,7 +99,7 @@ def create_admin_dashboard():
 
     dashboard_window.mainloop()
 
-# Window for the quiz for the student
+# student quiz window
 def open_quiz_window():
     quiz_window = tk.Tk()
     quiz_window.title("Quiz")
@@ -134,5 +134,5 @@ def open_quiz_window():
 
     quiz_window.mainloop()
 
-# Run login window
+# Run the login window
 create_login_window()
