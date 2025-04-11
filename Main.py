@@ -13,6 +13,20 @@ BACKGROUND_COLOR = "#f0f0f0"
 BUTTON_COLOR = "#4CAF50"
 TEXT_COLOR = "#333333"
 
+#Validate admin credentials
+def validate_admin_login():
+    username = entry_username.get()
+    password = entry_password.get()
+
+    if username == admin_username and password == admin_password:
+        open_admin_dashboard()
+    else:
+        messagebox.showerror("Login Failed", "Invalid username or password")
+
+#validate student login
+def validate_student_login():
+    open_quiz_window()
+
 #Open admin dashboard after login
 def open_admin_dashboard():
     login_window.quit()  # Close the login window
