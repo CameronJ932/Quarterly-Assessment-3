@@ -14,7 +14,7 @@ BUTTON_COLOR = "#4CAF50"
 TEXT_COLOR = "#333333"
 
 
-
+# window for student and admin login
 def create_login_window():
     global login_window
     login_window = tk.Tk()
