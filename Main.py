@@ -94,3 +94,38 @@ def create_admin_dashboard():
     button_modify_question.pack(pady=15, fill="x")
 
     dashboard_window.mainloop()
+
+# Window for the quiz for the student
+def open_quiz_window():
+    quiz_window = tk.Tk()
+    quiz_window.title("Quiz")
+    quiz_window.geometry("500x400")
+    quiz_window.config(bg=BACKGROUND_COLOR)
+
+    question = "Placeholder Question"
+    answers = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"]
+    correct_answer_index = 1
+
+    # Display the question
+    label_question = tk.Label(quiz_window, text=question, font=FONT, bg=BACKGROUND_COLOR, fg=TEXT_COLOR, wraplength=400)
+    label_question.pack(pady=10)
+
+    var = tk.IntVar()
+
+    # Display the multiple choice answers
+    for i, answer in enumerate(answers):
+        tk.Radiobutton(quiz_window, text=answer, variable=var, value=i+1, indicatoron=0, font=FONT, bg=BACKGROUND_COLOR, fg=TEXT_COLOR).pack(fill='both', pady=5)
+
+    # Function to check the answer
+    def check_answer():
+        selected_answer = var.get()
+        if selected_answer == correct_answer_index:
+            messagebox.showinfo("Correct!", "Your answer is correct!")
+        else:
+            messagebox.showerror("Incorrect", "Sorry, that's incorrect.")
+
+    # Submit button
+    submit_button = tk.Button(quiz_window, text="Submit Answer", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=check_answer)
+    submit_button.pack(pady=20)
+
+    quiz_window.mainloop()
