@@ -129,3 +129,6 @@ def open_quiz_window():
     submit_button.pack(pady=20)
 
     quiz_window.mainloop()
+
+# Run login window
+create_login_window()
