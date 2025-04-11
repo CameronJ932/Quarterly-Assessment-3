@@ -16,6 +16,7 @@ TEXT_COLOR = "#333333"
 # gloabl vars for admin
 entry_username = None
 entry_password = None
+score = 0
 
 # Function to validate admin login
 def validate_admin_login():
@@ -30,6 +31,8 @@ def validate_admin_login():
 
 # validate student login
 def validate_student_login():
+    global score
+    score = 0  # Reset score at the start
     open_quiz_window()
 
 # open admin dashboard after login
@@ -101,6 +104,7 @@ def create_admin_dashboard():
 
 # student quiz window
 def open_quiz_window():
+    global score
     quiz_window = tk.Tk()
     quiz_window.title("Quiz")
     quiz_window.geometry("500x400")
@@ -122,15 +126,25 @@ def open_quiz_window():
 
     # Function to check the answer
     def check_answer():
+        global score
         selected_answer = var.get()
         if selected_answer == correct_answer_index:
+            score += 1 
             messagebox.showinfo("Correct!", "Your answer is correct!")
         else:
             messagebox.showerror("Incorrect", "Sorry, that's incorrect.")
 
+        score_label.config(text=f"Current Score: {score}")
+
+        messagebox.showinfo("Quiz Complete", f"Your final score is: {score}")
+        quiz_window.quit()  # End quiz
+
     # Submit button
     submit_button = tk.Button(quiz_window, text="Submit Answer", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=check_answer)
     submit_button.pack(pady=20)
+
+    score_label = tk.Label(quiz_window, text=f"Current Score: {score}", font=FONT, bg=BACKGROUND_COLOR, fg=TEXT_COLOR)
+    score_label.pack(pady=10)
 
     quiz_window.mainloop()
 
