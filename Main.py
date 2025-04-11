@@ -17,6 +17,7 @@ TEXT_COLOR = "#333333"
 entry_username = None
 entry_password = None
 score = 0
+selected_class = None
 
 # Function to validate admin login
 def validate_admin_login():
@@ -33,7 +34,7 @@ def validate_admin_login():
 def validate_student_login():
     global score
     score = 0  # Reset score at the start
-    open_quiz_window()
+    create_class_selection_window()
 
 # open admin dashboard after login
 def open_admin_dashboard():
@@ -84,7 +85,7 @@ def open_admin_login_form():
 
     admin_login_window.mainloop()
 
-# Admin dashboard window for questions
+# Admin dashboard  
 def create_admin_dashboard():
     dashboard_window = tk.Tk()
     dashboard_window.title("Admin Dashboard")
@@ -101,6 +102,47 @@ def create_admin_dashboard():
     button_modify_question.pack(pady=15, fill="x")
 
     dashboard_window.mainloop()
+
+def create_class_selection_window():
+    global class_selection
+    class_selection = tk.Tk()
+    class_selection.title("Select a Class")
+    class_selection.geometry("400x300")
+    class_selection.config(bg=BACKGROUND_COLOR)
+
+    # class selection label
+    label = tk.Label(class_selection, text="Select a class for the quiz:", font=FONT, bg=BACKGROUND_COLOR, fg=TEXT_COLOR)
+    label.pack(pady=20)
+
+    # class selection button
+    global selected_class
+    selected_class = tk.StringVar()
+    selected_class.set("FIN-3210-004(Finance)")  # Default class
+
+    classes = [
+        "FIN-3210-004(Finance)",
+        "DS-3620-004(Business Analytics)",
+        "LAW-2810-002(Business Legal)",
+        "DS-3860-001(Business Database)"
+    ]
+
+    for class_name in classes:
+        tk.Radiobutton(class_selection, text=class_name, variable=selected_class, value=class_name, font=FONT, bg=BACKGROUND_COLOR, fg=TEXT_COLOR).pack(pady=5)
+
+    # Submit button 
+    submit_button = tk.Button(class_selection, text="Start Quiz", font=BUTTON_FONT, bg=BUTTON_COLOR, fg="white", command=start_quiz)
+    submit_button.pack(pady=20)
+
+    class_selection.mainloop()
+
+# Start quiz
+def start_quiz():
+    class_selection.quit()
+    class_selection.destroy()
+    
+    messagebox.showinfo("Quiz Starting", f"Starting the quiz for {selected_class.get()}...")
+    
+    open_quiz_window()
 
 # student quiz window
 def open_quiz_window():
