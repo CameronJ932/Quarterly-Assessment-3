@@ -182,16 +182,30 @@ def open_quiz_window(questions):
 
 # Function to start the admin dashboard
 def open_admin_dashboard():
-    global admin_dashboard
+    global admin_dashboard, selected_class_for_admin
     admin_dashboard = tk.Tk()
     admin_dashboard.title("Admin Dashboard")
     admin_dashboard.geometry("600x500")  # Increased window size
-
-    #selected_class_name = selected_class.get()  # Get the selected class
-    #class = get_questions_for_class(selected_class_name)
     
     label_dashboard = tk.Label(admin_dashboard, text="Welcome to Admin Dashboard", font=("Arial", 16))
     label_dashboard.pack(pady=30)
+
+    class_label = tk.Label(admin_dashboard, text="Select Class to Manage", font=("Arial", 14))
+    class_label.pack(pady=10)
+
+    class_options = [
+        "FIN-3210-004(Finance)", 
+        "DS-3620-004(Business Analytics)", 
+        "LAW-2810-002(Business Legal)", 
+        "DS-3850-001(Database Management)", 
+        "DS-3860-001(Business Database)"
+    ]
+
+    selected_class_for_admin = tk.StringVar()
+    selected_class_for_admin.set(class_options[0])  # Default to first option
+
+    class_dropdown = tk.OptionMenu(admin_dashboard, selected_class_for_admin, *class_options)
+    class_dropdown.pack(pady=10)
 
     # Buttons to manage questions
     add_button = tk.Button(admin_dashboard, text="Add Question", font=("Arial", 14), command=open_add_question_window)
@@ -211,6 +225,8 @@ def open_admin_dashboard():
 
 # Function to add a question
 def open_add_question_window():
+    global selected_class_for_admin
+    selected_class_for_admin = selected_class_for_admin.get()
     add_question_window = tk.Tk()
     add_question_window.title("Add Question")
     add_question_window.geometry("800x500")
@@ -252,7 +268,7 @@ def open_add_question_window():
         conn = sqlite3.connect('quiz.db')
         cursor = conn.cursor()
 
-        cursor.execute('''INSERT INTO "FIN-3210-004(Finance)" (question_text, answer_1, answer_2, answer_3, answer_4, correct_answer)
+        cursor.execute(f'''INSERT INTO "{selected_class_for_admin}" (question_text, answer_1, answer_2, answer_3, answer_4, correct_answer)
                           VALUES (?, ?, ?, ?, ?, ?)''', (question, answer1, answer2, answer3, answer4, correct_answer))
         conn.commit()
         conn.close()
@@ -267,6 +283,8 @@ def open_add_question_window():
 
 # Function to edit a question
 def open_edit_question_window():
+    global selected_class_for_admin
+    selected_class_for_admin = selected_class_for_admin.get()
     edit_question_window = tk.Tk()
     edit_question_window.title("Edit Question")
     edit_question_window.geometry("800x500")
@@ -288,7 +306,7 @@ def open_edit_question_window():
         conn = sqlite3.connect('quiz.db')
         cursor = conn.cursor()
 
-        cursor.execute('''SELECT * FROM "FIN-3210-004(Finance)" WHERE id = ?''', (question_id,))
+        cursor.execute(f'''SELECT * FROM "{selected_class_for_admin}" WHERE id = ?''', (question_id,))
         question = cursor.fetchone()
 
         if not question:
@@ -350,7 +368,7 @@ def open_edit_question_window():
         conn = sqlite3.connect('quiz.db')
         cursor = conn.cursor()
 
-        cursor.execute('''UPDATE "FIN-3210-004(Finance)" SET question_text = ?, answer_1 = ?, answer_2 = ?, answer_3 = ?, answer_4 = ?, correct_answer = ? 
+        cursor.execute(f'''UPDATE "{selected_class_for_admin}" SET question_text = ?, answer_1 = ?, answer_2 = ?, answer_3 = ?, answer_4 = ?, correct_answer = ? 
                           WHERE id = ?''', (question_text, answer1, answer2, answer3, answer4, correct_answer, question_id))
         conn.commit()
         conn.close()
@@ -365,6 +383,8 @@ def open_edit_question_window():
 
 # Function to delete a question
 def open_delete_question_window():
+    global selected_class_for_admin
+    selected_class_for_admin = selected_class_for_admin.get()
     delete_question_window = tk.Tk()
     delete_question_window.title("Delete Question")
     delete_question_window.geometry("800x500")
@@ -385,7 +405,7 @@ def open_delete_question_window():
         conn = sqlite3.connect('quiz.db')
         cursor = conn.cursor()
 
-        cursor.execute('''DELETE FROM "FIN-3210-004(Finance)" WHERE id = ?''', (question_id,))
+        cursor.execute(f'''DELETE FROM "{selected_class_for_admin}" WHERE id = ?''', (question_id,))
         conn.commit()
         conn.close()
 
