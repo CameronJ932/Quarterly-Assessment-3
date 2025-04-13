@@ -66,7 +66,7 @@ def show_class_selection_window():
     global class_selection_window, selected_class
     class_selection_window = tk.Tk()
     class_selection_window.title("Class Selection")
-    class_selection_window.geometry("600x400")  # Increased window size
+    class_selection_window.geometry("800x500")  # Increased window size
     class_selection_window.config(bg="lightblue")
 
     class_label = tk.Label(class_selection_window, text="Select Your Class", font=("Arial", 16), bg="lightblue")
@@ -134,7 +134,7 @@ def open_quiz_window(questions):
     current_question = 0  # Start from the first question
     quiz_window = tk.Tk()
     quiz_window.title("Quiz")
-    quiz_window.geometry("600x400")  # Increased window size
+    quiz_window.geometry("800x500")  # Increased window size
     quiz_window.config(bg="lightblue")
 
     def show_next_question():
@@ -242,7 +242,7 @@ def open_admin_dashboard():
 def open_add_question_window():
     add_question_window = tk.Tk()
     add_question_window.title("Add Question")
-    add_question_window.geometry("400x300")
+    add_question_window.geometry("800x500")
 
     label = tk.Label(add_question_window, text="Enter the question and answers")
     label.pack(pady=10)
@@ -298,7 +298,7 @@ def open_add_question_window():
 def open_edit_question_window():
     edit_question_window = tk.Tk()
     edit_question_window.title("Edit Question")
-    edit_question_window.geometry("400x300")
+    edit_question_window.geometry("800x500")
 
     label = tk.Label(edit_question_window, text="Enter the question ID to edit")
     label.pack(pady=10)
@@ -396,7 +396,7 @@ def open_edit_question_window():
 def open_delete_question_window():
     delete_question_window = tk.Tk()
     delete_question_window.title("Delete Question")
-    delete_question_window.geometry("400x300")
+    delete_question_window.geometry("800x500")
 
     label = tk.Label(delete_question_window, text="Enter the question ID to delete")
     label.pack(pady=10)
@@ -437,7 +437,7 @@ def login_screen():
     global student_window, entry_username, entry_password
     student_window = tk.Tk()
     student_window.title("Student Login")
-    student_window.geometry("500x400")  # Increased window size
+    student_window.geometry("800x500")  # Increased window size
     student_window.config(bg="lightblue")
 
     label_username = tk.Label(student_window, text="Username:", font=("Arial", 14), bg="lightblue")
