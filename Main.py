@@ -42,6 +42,19 @@ def open_admin_dashboard():
     admin_login_window.destroy()  
     create_admin_dashboard()  
 
+# Function to get questions for a specific class
+def get_questions_for_class(course):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+
+    cursor.execute(f'SELECT * FROM "{course}"')
+    questions = cursor.fetchall()
+
+    conn.close()
+
+    return questions  # Returns a list of questions from the database
+
+
 # login window with student and admin 
 def create_login_window():
     global login_window
