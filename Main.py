@@ -86,7 +86,7 @@ def show_class_selection_window():
     class_dropdown = tk.OptionMenu(class_selection_window, selected_class, *class_options)
     class_dropdown.pack(pady=10)
 
-    start_button = tk.Button(class_selection_window, text="Start Quiz", font=("Arial", 14), bg="green", fg="white", command=start_quiz)
+    start_button = tk.Button(class_selection_window, text="Select", font=("Arial", 14), bg="green", fg="white", command=start_quiz)
     start_button.pack(pady=20)
 
     class_selection_window.mainloop()
@@ -205,12 +205,6 @@ def open_quiz_window(questions):
     show_next_question()
 
     quiz_window.mainloop()
-
-# Go back to the login screen from the admin dashboard
-def go_back_to_login():
-    admin_dashboard.quit()
-    admin_dashboard.destroy()
-    login_screen()
 
 # Function to start the admin dashboard
 def open_admin_dashboard():
@@ -432,7 +426,7 @@ def go_back_to_login():
     admin_dashboard.destroy()
     login_screen()
 
-# Function to start the login screen
+# Function to start the login screendis
 def login_screen():
     global student_window, entry_username, entry_password
     student_window = tk.Tk()
