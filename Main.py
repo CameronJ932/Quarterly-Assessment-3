@@ -54,7 +54,6 @@ def get_questions_for_class(course):
 
     return questions  # Returns a list of questions from the database
 
-
 # login window with student and admin 
 def create_login_window():
     global login_window
@@ -152,10 +151,16 @@ def create_class_selection_window():
 def start_quiz():
     class_selection.quit()
     class_selection.destroy()
-    
-    messagebox.showinfo("Quiz Starting", f"Starting the quiz for {selected_class.get()}...")
-    
-    open_quiz_window()
+
+    # selected class
+    selected_class_name = selected_class.get()
+
+    # pull questions 
+    questions = get_questions_for_class(selected_class_name)
+
+    # Start the quiz 
+    open_quiz_window(questions)
+
 
 # student quiz window
 def open_quiz_window():
