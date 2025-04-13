@@ -91,32 +91,6 @@ def show_class_selection_window():
 
     class_selection_window.mainloop()
 
-# Admin dashboard
-def open_admin_dashboard():
-    global admin_dashboard
-    admin_dashboard = tk.Tk()
-    admin_dashboard.title("Admin Dashboard")
-    admin_dashboard.geometry("600x500")  # Increased window size
-    
-    label_dashboard = tk.Label(admin_dashboard, text="Welcome to Admin Dashboard", font=("Arial", 16))
-    label_dashboard.pack(pady=30)
-
-    # Buttons to manage questions
-    add_button = tk.Button(admin_dashboard, text="Add Question", font=("Arial", 14), command=open_add_question_window)
-    add_button.pack(pady=10)
-
-    edit_button = tk.Button(admin_dashboard, text="Edit Question", font=("Arial", 14), command=open_edit_question_window)
-    edit_button.pack(pady=10)
-
-    delete_button = tk.Button(admin_dashboard, text="Delete Question", font=("Arial", 14), command=open_delete_question_window)
-    delete_button.pack(pady=10)
-
-    # Button to go back to login screen
-    back_button = tk.Button(admin_dashboard, text="Back to Login", font=("Arial", 14), command=go_back_to_login)
-    back_button.pack(pady=20)
-
-    admin_dashboard.mainloop()
-
 # Function to start the quiz based on the selected class
 def start_quiz():
     class_selection_window.quit()
@@ -212,6 +186,9 @@ def open_admin_dashboard():
     admin_dashboard = tk.Tk()
     admin_dashboard.title("Admin Dashboard")
     admin_dashboard.geometry("600x500")  # Increased window size
+
+    #selected_class_name = selected_class.get()  # Get the selected class
+    #class = get_questions_for_class(selected_class_name)
     
     label_dashboard = tk.Label(admin_dashboard, text="Welcome to Admin Dashboard", font=("Arial", 16))
     label_dashboard.pack(pady=30)
