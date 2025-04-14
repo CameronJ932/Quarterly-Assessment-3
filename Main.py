@@ -301,12 +301,12 @@ def open_edit_question_window():
     selected_class_for_admin = selected_class_for_admin.get()
     edit_question_window = tk.Tk()
     edit_question_window.title("Edit Question")
-    edit_question_window.geometry("800x500")
+    edit_question_window.geometry("800x650")
 
     label = tk.Label(edit_question_window, text="Enter the question ID to edit")
     label.pack(pady=10)
 
-    question_label = tk.Label(edit_question_window, text="Enter 1-10 on first line ONLY\nOther lines will populate with question data", font=("Arial", 12))
+    question_label = tk.Label(edit_question_window, text="Enter 1-10 on first line ONLY\nOther lines will populate with question data\n ID:", font=("Arial", 12))
     question_label.pack(pady=5)
     question_id_entry = tk.Entry(edit_question_window, width=40)
     question_id_entry.pack(pady=5)
@@ -329,51 +329,51 @@ def open_edit_question_window():
             messagebox.showerror("Error", "Question not found.")
             return
 
-        question_label = tk.Label(edit_question_window, text="Question:", font=("Arial", 12))
-        question_label.pack(pady=5)
         question_entry.delete(0, tk.END)
         question_entry.insert(0, question[1])
 
-        question_label = tk.Label(edit_question_window, text="Possile answer 1:", font=("Arial", 12))
-        question_label.pack(pady=5)
         answer1_entry.delete(0, tk.END)
         answer1_entry.insert(0, question[2])
 
-        question_label = tk.Label(edit_question_window, text="Possile answer 2:", font=("Arial", 12))
-        question_label.pack(pady=5)
         answer2_entry.delete(0, tk.END)
         answer2_entry.insert(0, question[3])
 
-        question_label = tk.Label(edit_question_window, text="Possile answer 3:", font=("Arial", 12))
-        question_label.pack(pady=5)
         answer3_entry.delete(0, tk.END)
         answer3_entry.insert(0, question[4])
 
-        question_label = tk.Label(edit_question_window, text="Possile answer 3:", font=("Arial", 12))
-        question_label.pack(pady=5)
         answer4_entry.delete(0, tk.END)
         answer4_entry.insert(0, question[5])
 
-        question_label = tk.Label(edit_question_window, text="Answer:", font=("Arial", 12))
-        question_label.pack(pady=5)
         correct_answer_entry.delete(0, tk.END)
         correct_answer_entry.insert(0, question[6])
 
+    question_label = tk.Label(edit_question_window, text="Question:", font=("Arial", 12))
+    question_label.pack(pady=5)
     question_entry = tk.Entry(edit_question_window, width=40)
     question_entry.pack(pady=5)
 
+    question_label = tk.Label(edit_question_window, text="Possile answer 1:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer1_entry = tk.Entry(edit_question_window, width=40)
     answer1_entry.pack(pady=5)
 
+    question_label = tk.Label(edit_question_window, text="Possile answer 2:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer2_entry = tk.Entry(edit_question_window, width=40)
     answer2_entry.pack(pady=5)
 
+    question_label = tk.Label(edit_question_window, text="Possile answer 3:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer3_entry = tk.Entry(edit_question_window, width=40)
     answer3_entry.pack(pady=5)
 
+    question_label = tk.Label(edit_question_window, text="Possile answer 3:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer4_entry = tk.Entry(edit_question_window, width=40)
     answer4_entry.pack(pady=5)
 
+    question_label = tk.Label(edit_question_window, text="Answer index:", font=("Arial", 12))
+    question_label.pack(pady=5)
     correct_answer_entry = tk.Entry(edit_question_window, width=40)
     correct_answer_entry.pack(pady=5)
 
