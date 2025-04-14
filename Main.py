@@ -2,6 +2,11 @@ import tkinter as tk
 from tkinter import messagebox
 import sqlite3
 
+root = tk.Tk()
+root.withdraw()
+
+selected_class_for_admin = tk.StringVar()
+
 # Function to initialize the database and create tables
 def init_db():
     conn = sqlite3.connect('quiz.db')
@@ -182,7 +187,8 @@ def open_quiz_window(questions):
 
 # Function to start the admin dashboard
 def open_admin_dashboard():
-    global admin_dashboard, selected_class_for_admin
+    global admin_dashboard
+    
     admin_dashboard = tk.Tk()
     admin_dashboard.title("Admin Dashboard")
     admin_dashboard.geometry("600x500")  # Increased window size
@@ -201,7 +207,6 @@ def open_admin_dashboard():
         "DS-3860-001(Business Database)"
     ]
 
-    selected_class_for_admin = tk.StringVar()
     selected_class_for_admin.set(class_options[0])  # Default to first option
 
     class_dropdown = tk.OptionMenu(admin_dashboard, selected_class_for_admin, *class_options)
@@ -226,7 +231,7 @@ def open_admin_dashboard():
 # Function to add a question
 def open_add_question_window():
     global selected_class_for_admin
-    selected_class_for_admin = selected_class_for_admin.get()
+    
     add_question_window = tk.Tk()
     add_question_window.title("Add Question")
     add_question_window.geometry("800x500")
@@ -254,12 +259,16 @@ def open_add_question_window():
 
     # Button to add the question to the database
     def add_question():
+        global selected_class_for_admin
+        selected_class_for_admin = selected_class_for_admin.get()
+        
         question = question_entry.get()
         answer1 = answer1_entry.get()
         answer2 = answer2_entry.get()
         answer3 = answer3_entry.get()
         answer4 = answer4_entry.get()
         correct_answer = correct_answer_entry.get()
+        selected_class_for_admin = selected_class_for_admin.get()
 
         if not all([question, answer1, answer2, answer3, answer4, correct_answer]):
             messagebox.showerror("Error", "Please fill out all fields.")
@@ -285,6 +294,7 @@ def open_add_question_window():
 def open_edit_question_window():
     global selected_class_for_admin
     selected_class_for_admin = selected_class_for_admin.get()
+
     edit_question_window = tk.Tk()
     edit_question_window.title("Edit Question")
     edit_question_window.geometry("800x500")
@@ -385,6 +395,7 @@ def open_edit_question_window():
 def open_delete_question_window():
     global selected_class_for_admin
     selected_class_for_admin = selected_class_for_admin.get()
+
     delete_question_window = tk.Tk()
     delete_question_window.title("Delete Question")
     delete_question_window.geometry("800x500")
