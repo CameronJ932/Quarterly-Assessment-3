@@ -443,7 +443,7 @@ def login_screen():
     entry_password = tk.Entry(student_window, font=("Arial", 14), show="*")
     entry_password.pack(pady=10)
 
-    login_button = tk.Button(student_window, text="Login as Student", font=("Arial", 14), bg="green", fg="white", command=validate_student_login)
+    login_button = tk.Button(student_window, text="Login as Student \n(No Authentication required)", font=("Arial", 14), bg="green", fg="white", command=validate_student_login)
     login_button.pack(pady=20)
 
     admin_button = tk.Button(student_window, text="Login as Admin", font=("Arial", 14), bg="green", fg="white", command=validate_admin_login)
