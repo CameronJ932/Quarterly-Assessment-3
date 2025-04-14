@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import sqlite3
 
-# Function to initialize the database and create tables
+# initialize the database and create tables
 def init_db():
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -32,7 +32,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Fetch questions from the database for a specific class
+# Fetch questions from the database based on class
 def get_questions_for_class(course):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -42,9 +42,9 @@ def get_questions_for_class(course):
 
     conn.close()
 
-    return questions  # Returns a list of questions from the database
+    return questions  # return the list of questions
 
-# Function to validate admin login
+# validate admin login
 def validate_admin_login():
     username = entry_username.get()
     password = entry_password.get()
@@ -54,19 +54,19 @@ def validate_admin_login():
     else:
         messagebox.showerror("Invalid Credentials", "Incorrect username or password")
 
-# Function to validate student login
+# validate student login
 def validate_student_login():
     student_window.quit()
     student_window.destroy()
 
-    show_class_selection_window()  # Show the class selection window after successful login
+    show_class_selection_window()  # move on to next page
 
-# Function to show the class selection window
+# class selection window
 def show_class_selection_window():
     global class_selection_window, selected_class
     class_selection_window = tk.Tk()
     class_selection_window.title("Class Selection")
-    class_selection_window.geometry("800x500")  # Increased window size
+    class_selection_window.geometry("800x500")  
     class_selection_window.config(bg="lightblue")
 
     class_label = tk.Label(class_selection_window, text="Select Your Class", font=("Arial", 16), bg="lightblue")
@@ -81,7 +81,7 @@ def show_class_selection_window():
     ]
 
     selected_class = tk.StringVar()
-    selected_class.set(class_options[0])  # Default to first option
+    selected_class.set(class_options[0]) # default
 
     class_dropdown = tk.OptionMenu(class_selection_window, selected_class, *class_options)
     class_dropdown.pack(pady=10)
@@ -91,28 +91,29 @@ def show_class_selection_window():
 
     class_selection_window.mainloop()
 
-# Function to start the quiz based on the selected class
+# start quiz based selected class
 def start_quiz():
     class_selection_window.quit()
     class_selection_window.destroy()
 
-    selected_class_name = selected_class.get()  # Get the selected class
+    selected_class_name = selected_class.get()  # Get selected class
     questions = get_questions_for_class(selected_class_name)
 
     open_quiz_window(questions)
 
-# Function to start the quiz window and display the questions
+# start quiz window and display the questions
 def open_quiz_window(questions):
-    global score, current_question  # Declare as global to modify within the function
+    global score, current_question  
     score = 0
-    current_question = 0  # Start from the first question
+    current_question = 0  
     quiz_window = tk.Tk()
     quiz_window.title("Quiz")
-    quiz_window.geometry("800x500")  # Increased window size
+    quiz_window.geometry("800x500")  
     quiz_window.config(bg="lightblue")
 
+    # Move on to the next question when the previous is answered 
     def show_next_question():
-        global current_question  # Use global to update the index
+        global current_question  
 
         if current_question < len(questions):
             question_data = questions[current_question]
@@ -126,8 +127,7 @@ def open_quiz_window(questions):
             for i, answer in enumerate(answers):
                 radio_buttons[i].config(text=answer)
 
-            # Store the correct answer index in the radio button value
-            var.set(0)  # Reset the radio button selection for the new question
+            var.set(0)  # reset selection
             
             submit_button.config(command=lambda: check_answer(correct_answer_index))
 
@@ -135,11 +135,12 @@ def open_quiz_window(questions):
             # If no more questions are left, show the final score and exit the quiz
             messagebox.showinfo("Quiz Complete", f"Your final score is: {score} out of 10")
             quiz_window.quit()
-            quiz_window.destroy()  # Close the quiz window
+            quiz_window.destroy()  
 
-            # Restart the quiz by going back to the class selection screen
+            # Restart the quiz by showing class selection
             show_class_selection_window()
 
+    #Make sure answer is correct
     def check_answer(correct_answer_index):
         global score, current_question
 
@@ -154,16 +155,16 @@ def open_quiz_window(questions):
 
         # Move to the next question
         current_question += 1
-        show_next_question()  # Display the next question
+        show_next_question()  
 
-    # Display the first question
+    # Display first question
     label_question = tk.Label(quiz_window, text="", font=("Arial", 16), bg="lightblue", fg="black", wraplength=400)
     label_question.pack(pady=10)
 
     var = tk.IntVar()
 
     radio_buttons = []
-    for i in range(4):  # Create 4 radio buttons for each answer option
+    for i in range(4):  # Create 4 radio buttons 
         radio_button = tk.Radiobutton(quiz_window, variable=var, value=i+1, indicatoron=0, font=("Arial", 12), bg="lightblue", fg="black")
         radio_button.pack(fill='both', pady=5)
         radio_buttons.append(radio_button)
@@ -175,17 +176,17 @@ def open_quiz_window(questions):
     score_label = tk.Label(quiz_window, text=f"Current Score: {score}", font=("Arial", 14), bg="lightblue", fg="black")
     score_label.pack(pady=10)
 
-    # Start by displaying the first question
+    # display the first question
     show_next_question()
 
     quiz_window.mainloop()
 
-# Function to start the admin dashboard
+# start the admin dashboard
 def open_admin_dashboard():
     global admin_dashboard, selected_class_for_admin
     admin_dashboard = tk.Tk()
     admin_dashboard.title("Admin Dashboard")
-    admin_dashboard.geometry("600x500")  # Increased window size
+    admin_dashboard.geometry("600x500")  
     
     label_dashboard = tk.Label(admin_dashboard, text="Welcome to Admin Dashboard", font=("Arial", 16))
     label_dashboard.pack(pady=30)
@@ -202,12 +203,12 @@ def open_admin_dashboard():
     ]
 
     selected_class_for_admin = tk.StringVar()
-    selected_class_for_admin.set(class_options[0])  # Default to first option
+    selected_class_for_admin.set(class_options[0])  # Default 
 
     class_dropdown = tk.OptionMenu(admin_dashboard, selected_class_for_admin, *class_options)
     class_dropdown.pack(pady=10)
 
-    # Buttons to manage questions
+    # Buttons to manage admin selection
     add_button = tk.Button(admin_dashboard, text="Add Question", font=("Arial", 14), command=open_add_question_window)
     add_button.pack(pady=10)
 
@@ -223,7 +224,7 @@ def open_admin_dashboard():
 
     admin_dashboard.mainloop()
 
-# Function to add a question
+# add a question
 def open_add_question_window():
     global selected_class_for_admin
     selected_class_for_admin = selected_class_for_admin.get()
@@ -234,25 +235,38 @@ def open_add_question_window():
     label = tk.Label(add_question_window, text="Enter the question and answers")
     label.pack(pady=10)
 
+    #Labels for adding question along with possible answers and the actual answer
+    question_label = tk.Label(add_question_window, text="Question Text:", font=("Arial", 12))
+    question_label.pack(pady=5)
     question_entry = tk.Entry(add_question_window, width=40)
     question_entry.pack(pady=5)
 
+    question_label = tk.Label(add_question_window, text="Possible answer 1:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer1_entry = tk.Entry(add_question_window, width=40)
     answer1_entry.pack(pady=5)
 
+    question_label = tk.Label(add_question_window, text="Possible answer 2:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer2_entry = tk.Entry(add_question_window, width=40)
     answer2_entry.pack(pady=5)
 
+    question_label = tk.Label(add_question_window, text="Possible answer 3:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer3_entry = tk.Entry(add_question_window, width=40)
     answer3_entry.pack(pady=5)
 
+    question_label = tk.Label(add_question_window, text="Possible answer 4:", font=("Arial", 12))
+    question_label.pack(pady=5)
     answer4_entry = tk.Entry(add_question_window, width=40)
     answer4_entry.pack(pady=5)
 
+    question_label = tk.Label(add_question_window, text="Answer:", font=("Arial", 12))
+    question_label.pack(pady=5)
     correct_answer_entry = tk.Entry(add_question_window, width=40)
     correct_answer_entry.pack(pady=5)
 
-    # Button to add the question to the database
+    # Button to add the question to the database / actual logic to add it
     def add_question():
         question = question_entry.get()
         answer1 = answer1_entry.get()
@@ -295,7 +309,7 @@ def open_edit_question_window():
     question_id_entry = tk.Entry(edit_question_window, width=40)
     question_id_entry.pack(pady=5)
 
-    # Function to fetch and display the question to edit
+    # fetch and display the question to edit
     def fetch_and_edit():
         question_id = question_id_entry.get()
         
@@ -352,6 +366,7 @@ def open_edit_question_window():
     fetch_button = tk.Button(edit_question_window, text="Fetch Question", font=("Arial", 12), command=fetch_and_edit)
     fetch_button.pack(pady=10)
 
+    # save the edited question to the DB
     def save_edited_question():
         question_id = question_id_entry.get()
         question_text = question_entry.get()
@@ -381,7 +396,7 @@ def open_edit_question_window():
 
     edit_question_window.mainloop()
 
-# Function to delete a question
+# delete a question
 def open_delete_question_window():
     global selected_class_for_admin
     selected_class_for_admin = selected_class_for_admin.get()
@@ -395,6 +410,7 @@ def open_delete_question_window():
     question_id_entry = tk.Entry(delete_question_window, width=40)
     question_id_entry.pack(pady=5)
 
+    # Logic to delete question
     def delete_question():
         question_id = question_id_entry.get()
         
@@ -423,12 +439,12 @@ def go_back_to_login():
     admin_dashboard.destroy()
     login_screen()
 
-# Function to start the login screendis
+# start the login screen
 def login_screen():
     global student_window, entry_username, entry_password
     student_window = tk.Tk()
     student_window.title("Student Login")
-    student_window.geometry("800x500")  # Increased window size
+    student_window.geometry("800x500")  
     student_window.config(bg="lightblue")
 
     label_username = tk.Label(student_window, text="Username:", font=("Arial", 14), bg="lightblue")
@@ -451,6 +467,5 @@ def login_screen():
 
     student_window.mainloop()
 
-# Run the login screen function
 init_db()  # Initialize the database with tables
 login_screen()  # Start the login screen
